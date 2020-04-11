@@ -3,7 +3,7 @@ import os
 import csv
 from concurrent.futures import ThreadPoolExecutor
 
-_key="8D2C78JB9VS574RVEUHVTJY3WHHDAJEENX" #API key
+_key="" #API key
 _p1="https://api.etherscan.io/api?module=contract&action=getsourcecode&address="
 _keyparam="&apikey="
 _fold=os.getcwd()+'\\reader_getter_data'
