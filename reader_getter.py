@@ -8,7 +8,7 @@ _addr2=''
 _addr3=''
 _addr4=''
 _addr5=''
-_key="8D2C78JB9VS574RVEUHVTJY3WHHDAJEENX" #API key
+_key="" #API key
 _p1="https://api.etherscan.io/api?module=contract&action=getsourcecode&address="
 _keyparam="&apikey="
 _threader=0
