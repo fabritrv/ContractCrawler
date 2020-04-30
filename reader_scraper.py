@@ -18,7 +18,7 @@ def scrape_from_bigquery_csv(filename):
             if line_count == 0: #the first line is a note
                 print(f'\nStarting to read {filename}')
             else:
-                filename=row[0]+".sol"
+                filename=row[0]+".txt"
                 loc=_fold+'\\'+filename
                 if os.path.isfile(loc):
                     continue
@@ -54,7 +54,7 @@ def scrape_code(addr):
     begin = text.find("/**")
     end = text.find("</pre>")
     source_code=text[begin : end]
-    filename=addr+".sol"
+    filename=addr+".txt"
     loc=_fold+'\\'+filename
     f = open(loc, "w", encoding = "utf-8")
     f.write(source_code)
