@@ -20,7 +20,7 @@ def get_source_code_from_bigquery_csv(filename):
             if line_count == 0: #the first line is a note
                 print(f'\nStarting to read {filename}')
             else:
-                filename=row[0]+".sol"
+                filename=row[0]+".txt"
                 loc=_fold+'\\'+filename
                 if os.path.isfile(loc):
                     continue
@@ -47,7 +47,7 @@ def api_call(addr):
     response = requests.get(url)
     source_code = response.json()['result'][0]['SourceCode']
     if source_code!='':
-        filename=addr+".sol"
+        filename=addr+".txt"
         loc=_fold+'\\'+filename
         f = open(loc, "w", encoding = "utf-8")
         f.write(source_code)
