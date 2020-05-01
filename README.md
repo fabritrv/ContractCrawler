@@ -1,5 +1,5 @@
 # ContractCrawler
-Crawler that gets verified contracts from Etherscan.
+Crawler that gets verified contracts from Etherscan in two different ways.
 
 
 WHAT YOU NEED
