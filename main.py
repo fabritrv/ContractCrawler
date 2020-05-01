@@ -2,6 +2,7 @@ import time
 import reader_getter
 import reader_scraper
 
+
 def main():
     filename = input('Enter the name of your .csv (ex. filename.csv): ')
     mode = input('Scraper or API? [S/A]: ')
@@ -17,5 +18,6 @@ def main():
         return
     print("\nEXECUTION TIME --- %s seconds ---\n" % (time.time() - start_time))
     print('\n\nDone.')
+
 
 main()
