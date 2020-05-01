@@ -3,11 +3,18 @@ import reader_getter
 import reader_scraper
 
 def main():
-    start_time = time.time()
-    #threaded scraper, 100 parallel calls, no source code in multiple files
-    #reader_scraper.scrape_from_bigquery_csv('bigquery_2018.csv') 
-    #threaded API caller, 5 calls/sec
-    reader_getter.get_source_code_from_bigquery_csv('bigquery_2018.csv')
+    filename = input('Enter the name of your .csv (ex. filename.csv): ')
+    mode = input('Scraper or API? [S/A]: ')
+    if mode=='S':
+        start_time = time.time()
+        reader_scraper.scrape_from_bigquery_csv(filename)
+    elif mode=='A':
+        key = input('Enter your API key: ')
+        start_time = time.time()
+        reader_getter.get_source_code_from_bigquery_csv(filename, key)
+    else:
+        print('Select a valid response [S/A].')
+        return
     print("\nEXECUTION TIME --- %s seconds ---\n" % (time.time() - start_time))
     print('\n\nDone.')
 

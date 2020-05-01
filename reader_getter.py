@@ -3,12 +3,13 @@ import os
 import csv
 from concurrent.futures import ThreadPoolExecutor
 
-_key="" #API key
+
 _p1="https://api.etherscan.io/api?module=contract&action=getsourcecode&address="
 _keyparam="&apikey="
 _fold=os.getcwd()+'\\reader_getter_data'
 
-def get_source_code_from_bigquery_csv(filename):
+
+def get_source_code_from_bigquery_csv(filename, key):
     global _fold
     address_list=[]
     line_count = 0
@@ -27,23 +28,24 @@ def get_source_code_from_bigquery_csv(filename):
                 else:
                     address_list.append(row[0])
                     if len(address_list)==5:
-                        api_threader(address_list)
+                        api_threader(address_list, key)
                         address_list=[]
             line_count += 1
             print("\rContracts analyzed - {:.8f}%".format((line_count / 20467002) * 100), end=" ")
     print(f'Processed {line_count-1} contracts.')
 
-def api_threader(address_list):
+
+def api_threader(address_list, key):
     with ThreadPoolExecutor(max_workers=5) as executor:
         for a in address_list:
-            executor.submit(api_call, a)
+            executor.submit(api_call, a, key)
 
-def api_call(addr):
+
+def api_call(addr, key):
     global _p1
-    global _key
     global _keyparam
     global _fold
-    url=_p1+addr+_keyparam+_key
+    url=_p1+addr+_keyparam+key
     response = requests.get(url)
     source_code = response.json()['result'][0]['SourceCode']
     if source_code!='':

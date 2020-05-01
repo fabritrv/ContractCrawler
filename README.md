@@ -1,12 +1,15 @@
 # ContractCrawler
 Crawler that gets verified contracts from Etherscan.
 
-To run it a csv containing the address of the contracts is needed. If you need access to this file email-me.
-You will also need an API key.
+
+WHAT YOU NEED
+1. Dependencies: requests, bs4, lxml (pip install).
+2. CSV: containing the address of the contracts, just place it in the same folder as main.py. If you need access to this file email-me.
+3. API key: get it from Etherscan website if you want to use the API and not the scraper.
 
 
-TO RUN THE CRAWLER:
-Uncomment reader_scraper if you want to scrape directly from the website, or uncomment reader_getter if you want to use Etherscan's API.
+TO RUN THE CRAWLER
+1. Enter the name of you .csv file.
+2. Select S for the scraper, A for using Etherscan API.
+3. Enter your API key if you selected A.
 
-
-Dependencies: requests, bs4, lxml (pip install)

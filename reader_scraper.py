@@ -4,7 +4,9 @@ import csv
 from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 
+
 _fold=os.getcwd()+'\\reader_scraper_data'
+
 
 def scrape_from_bigquery_csv(filename):
     global _fold
@@ -31,10 +33,12 @@ def scrape_from_bigquery_csv(filename):
             print("\rContracts analyzed - {:.8f}%".format((line_count / 20467002) * 100), end=" ")
     print(f'Processed {line_count-1} contracts.')    
 
+
 def scrape_threader(address_list):
     with ThreadPoolExecutor(max_workers=100) as executor:
         for addr in address_list:
             executor.submit(scrape_code, addr)
+
 
 def scrape_code(addr):
     url='https://etherscan.io/address/'+addr+'#code'

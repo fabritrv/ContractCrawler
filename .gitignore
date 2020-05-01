@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+bigquery_2018.csv
+reader_scraper_data/
+reader_getter_data/
