@@ -4,7 +4,7 @@ Crawler that gets verified contracts from Etherscan in two different ways.
 
 **WHAT YOU NEED**
 1. Dependencies: requests, bs4, lxml (pip install).
-2. CSV: containing the address of the contracts, just place it in the same folder as main.py. If you need access to this file email-me.
+2. CSV: containing the address of the contracts, just place it in the same folder as main.py. If you need access to this file email me.
 3. API key: get it from Etherscan website if you want to use the API and not the scraper.
 
 
