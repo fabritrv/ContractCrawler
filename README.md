@@ -10,6 +10,7 @@ Crawler that gets verified contracts from Etherscan in two different ways.
 
 **TO RUN THE CRAWLER**
 1. Enter the name of you .csv file.
-2. Select S for the scraper, A for using Etherscan API.
-3. Enter your API key if you selected A.
+2. Select an extension (sol or txt)
+3. Select S for the scraper, A for using Etherscan API.
+4. Enter your API key if you selected A.
 
