@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 _fold=os.getcwd()+'\\reader_scraper_data'
 
 
-def scrape_from_bigquery_csv(filename):
+def scrape_from_bigquery_csv(filename, extension):
     global _fold
     address_li=[]
     line_count = 0
@@ -20,27 +20,27 @@ def scrape_from_bigquery_csv(filename):
             if line_count == 0: #the first line is a note
                 print(f'\nStarting to read {filename}')
             else:
-                filename=row[0]+".txt"
+                filename=row[0]+"."+extension
                 loc=_fold+'\\'+filename
                 if os.path.isfile(loc):
                     continue
                 else:
                     address_li.append(row[0])
                     if len(address_li)==100:
-                        scrape_threader(address_li)
+                        scrape_threader(address_li, extension)
                         address_li=[]
             line_count += 1
             print("\rContracts analyzed - {:.8f}%".format((line_count / 20467002) * 100), end=" ")
     print(f'Processed {line_count-1} contracts.')    
 
 
-def scrape_threader(address_list):
+def scrape_threader(address_list, extension):
     with ThreadPoolExecutor(max_workers=100) as executor:
         for addr in address_list:
-            executor.submit(scrape_code, addr)
+            executor.submit(scrape_code, addr, extension)
 
 
-def scrape_code(addr):
+def scrape_code(addr, extension):
     url='https://etherscan.io/address/'+addr+'#code'
     user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
     headers = {'User-Agent': user_agent}
@@ -58,7 +58,7 @@ def scrape_code(addr):
     begin = text.find("/**")
     end = text.find("</pre>")
     source_code=text[begin : end]
-    filename=addr+".txt"
+    filename=addr+"."+extension
     loc=_fold+'\\'+filename
     f = open(loc, "w", encoding = "utf-8")
     f.write(source_code)

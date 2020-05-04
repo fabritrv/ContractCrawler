@@ -9,7 +9,7 @@ _keyparam="&apikey="
 _fold=os.getcwd()+'\\reader_getter_data'
 
 
-def get_source_code_from_bigquery_csv(filename, key):
+def get_source_code_from_bigquery_csv(filename, key, extension):
     global _fold
     address_list=[]
     line_count = 0
@@ -21,27 +21,27 @@ def get_source_code_from_bigquery_csv(filename, key):
             if line_count == 0: #the first line is a note
                 print(f'\nStarting to read {filename}')
             else:
-                filename=row[0]+".txt"
+                filename=row[0]+"."+extension
                 loc=_fold+'\\'+filename
                 if os.path.isfile(loc):
                     continue
                 else:
                     address_list.append(row[0])
                     if len(address_list)==5:
-                        api_threader(address_list, key)
+                        api_threader(address_list, key, extension)
                         address_list=[]
             line_count += 1
             print("\rContracts analyzed - {:.8f}%".format((line_count / 20467002) * 100), end=" ")
     print(f'Processed {line_count-1} contracts.')
 
 
-def api_threader(address_list, key):
+def api_threader(address_list, key, extension):
     with ThreadPoolExecutor(max_workers=5) as executor:
         for a in address_list:
-            executor.submit(api_call, a, key)
+            executor.submit(api_call, a, key, extension)
 
 
-def api_call(addr, key):
+def api_call(addr, key, extension):
     global _p1
     global _keyparam
     global _fold
@@ -49,7 +49,7 @@ def api_call(addr, key):
     response = requests.get(url)
     source_code = response.json()['result'][0]['SourceCode']
     if source_code!='':
-        filename=addr+".txt"
+        filename=addr+"."+extension
         loc=_fold+'\\'+filename
         f = open(loc, "w", encoding = "utf-8")
         f.write(source_code)
