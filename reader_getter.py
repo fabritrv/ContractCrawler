@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 _p1="https://api.etherscan.io/api?module=contract&action=getsourcecode&address="
 _keyparam="&apikey="
-_fold=os.getcwd()+'\\reader_getter_data'
+_fold=os.getcwd()+os.sep+'reader_getter_data'
 
 
 def get_source_code_from_bigquery_csv(filename, key, extension):
@@ -22,7 +22,7 @@ def get_source_code_from_bigquery_csv(filename, key, extension):
                 print(f'\nStarting to read {filename}')
             else:
                 filename=row[0]+"."+extension
-                loc=_fold+'\\'+filename
+                loc=_fold+os.sep+filename
                 if os.path.isfile(loc):
                     continue
                 else:
@@ -50,7 +50,7 @@ def api_call(addr, key, extension):
     source_code = response.json()['result'][0]['SourceCode']
     if source_code!='':
         filename=addr+"."+extension
-        loc=_fold+'\\'+filename
+        loc=_fold+os.sep+filename
         f = open(loc, "w", encoding = "utf-8")
         f.write(source_code)
         f.close

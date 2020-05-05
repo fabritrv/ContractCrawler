@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 
 
-_fold=os.getcwd()+'\\reader_scraper_data'
+_fold=os.getcwd()+os.sep+'reader_scraper_data'
 
 
 def scrape_from_bigquery_csv(filename, extension):
@@ -21,7 +21,7 @@ def scrape_from_bigquery_csv(filename, extension):
                 print(f'\nStarting to read {filename}')
             else:
                 filename=row[0]+"."+extension
-                loc=_fold+'\\'+filename
+                loc=_fold+os.sep+filename
                 if os.path.isfile(loc):
                     continue
                 else:
@@ -59,7 +59,7 @@ def scrape_code(addr, extension):
     end = text.find("</pre>")
     source_code=text[begin : end]
     filename=addr+"."+extension
-    loc=_fold+'\\'+filename
+    loc=_fold+os.sep+filename
     f = open(loc, "w", encoding = "utf-8")
     f.write(source_code)
     f.close
